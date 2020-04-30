@@ -1,7 +1,7 @@
 const cors = require('cors');
 const express = require('express');
-const stripe = require('stripe')('pk_test_79JeVWRj8aRBf0p5kjYM6Hlr00vy6T5coG');
-// const uuid = require('uuid/v4');
+const stripe = require('stripe')('sk_test_X6Mq078VjyCBw8EPzEShrc6T00dLoNmigu');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 
@@ -14,14 +14,14 @@ app.get('/', (req, res) => {
     res.send('HELLO')
 })
 
-app.post('/payment', (req, res) => {
+app.post("/payment", (req, res) => {
 
     // token can contain all the customer data
     const {product, token} = req.body;
     console.log('PRODUCT:', product);
     console.log('PRODUCT:', product.price);
     // give a different key so user wont be charged twice
-    const idempontencyKey = uuid();
+    const idempontencyKey = uuidv4();
 
     return stripe.customers.create({
         email: token.email,
